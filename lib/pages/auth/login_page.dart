@@ -31,7 +31,9 @@ class _LoginPageState extends State<LoginPage> {
                   filled: true,
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(value)) {
                     return 'Please enter valid email';
                   }
                   return null;
