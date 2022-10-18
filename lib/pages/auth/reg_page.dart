@@ -1,15 +1,15 @@
-import 'package:firechat/pages/auth/reg_page.dart';
+import 'package:firechat/pages/auth/login_page.dart';
 import 'package:firechat/shared/ui_helper.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegPage extends StatefulWidget {
+  const RegPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegPage> createState() => _RegPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegPageState extends State<RegPage> {
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passTextController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Login'),
+              const Text('Registration'),
               kVerticalSpaceM,
               TextFormField(
                 decoration: const InputDecoration(
@@ -52,21 +52,21 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   formKey.currentState!.validate();
                 },
-                child: const Text('Login'),
+                child: const Text('Sign up'),
               ),
               Row(
                 children: [
-                  const Text('New user?'),
+                  const Text('Already user?'),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const RegPage(),
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     },
-                    child: const Text('sign up'),
+                    child: const Text('log in'),
                   )
                 ],
               ),
