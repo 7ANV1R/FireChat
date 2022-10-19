@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:firechat/pages/auth/login_page.dart';
+import 'package:firechat/pages/homepage/homepage.dart';
 import 'package:firechat/service/auth_service.dart';
 import 'package:firechat/shared/ui_helper.dart';
 import 'package:firechat/widgets/custom_snackbar.dart';
@@ -29,6 +28,13 @@ class _RegPageState extends State<RegPage> {
       await authServices.regWithEmailPass(fullName, email, password).then((value) {
         if (value == true) {
           // save sf
+
+          // nav
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ));
 
           setState(() {
             _isLoading = false;
