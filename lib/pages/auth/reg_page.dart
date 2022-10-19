@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firechat/pages/auth/login_page.dart';
 import 'package:firechat/service/auth_service.dart';
 import 'package:firechat/shared/ui_helper.dart';
+import 'package:firechat/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class RegPage extends StatefulWidget {
@@ -26,10 +27,18 @@ class _RegPageState extends State<RegPage> {
         _isLoading = true;
       });
       await authServices.regWithEmailPass(fullName, email, password).then((value) {
-        log(value);
         if (value == true) {
           // save sf
+
+          setState(() {
+            _isLoading = false;
+          });
         } else {
+          showGeneralSnakbar(
+            context: context,
+            message: value,
+            backgroundColor: Colors.red,
+          );
           setState(() {
             _isLoading = false;
           });
@@ -63,7 +72,7 @@ class _RegPageState extends State<RegPage> {
                         filled: true,
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Name can\'t be empty';
                         }
                         return null;
@@ -77,8 +86,7 @@ class _RegPageState extends State<RegPage> {
                         filled: true,
                       ),
                       validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
+                        if (value!.isEmpty ||
                             !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(value)) {
                           return 'Please enter valid email';
                         }
@@ -94,8 +102,10 @@ class _RegPageState extends State<RegPage> {
                         filled: true,
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Password can\'t be empty';
+                        } else if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
                         }
                         return null;
                       },
