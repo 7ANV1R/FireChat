@@ -43,7 +43,9 @@ class _MyAppState extends State<MyApp> {
   void getUserLoggedInStatus() {
     SharedPrefServices.getUserLoggedInStatus().then((value) {
       if (value != null) {
-        _isUser = value;
+        setState(() {
+          _isUser = value;
+        });
       }
     });
   }

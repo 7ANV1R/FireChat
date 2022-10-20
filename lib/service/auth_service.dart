@@ -13,12 +13,12 @@ class AuthServices {
       //something
 
       User user = (await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user!;
-      if (user != null) {
-        // add user to database
-        await DatabaseServices(uid: user.uid).updateUserData(fullName, email);
+      // if (user != null) {
+      // add user to database
+      await DatabaseServices(uid: user.uid).updateUserData(fullName, email);
 
-        return true;
-      }
+      return true;
+      // }
     } on FirebaseAuthException catch (e) {
       log(e.message.toString());
       return e.message;

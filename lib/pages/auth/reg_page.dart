@@ -1,6 +1,7 @@
 import 'package:firechat/pages/auth/login_page.dart';
 import 'package:firechat/pages/homepage/homepage.dart';
 import 'package:firechat/service/auth_service.dart';
+import 'package:firechat/service/sf_services.dart';
 import 'package:firechat/shared/ui_helper.dart';
 import 'package:firechat/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _RegPageState extends State<RegPage> {
   TextEditingController nameTextController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   AuthServices authServices = AuthServices();
+  SharedPrefServices sharedPrefServices = SharedPrefServices();
 
   register({required String fullName, required String email, required String password}) async {
     if (formKey.currentState!.validate()) {
@@ -28,6 +30,9 @@ class _RegPageState extends State<RegPage> {
       await authServices.regWithEmailPass(fullName, email, password).then((value) {
         if (value == true) {
           // save sf
+          sharedPrefServices.setUserLoggedInStatus(isLoggedIn: true);
+          sharedPrefServices.setUserName(userName: fullName);
+          sharedPrefServices.setUserEmail(userEmail: email);
 
           // nav
           Navigator.pushReplacement(
