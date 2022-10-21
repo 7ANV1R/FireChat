@@ -29,4 +29,7 @@ class AuthServices {
 
   //logout
 
+  Future signOut() async {
+    await firebaseAuth.signOut();
+  }
 }
