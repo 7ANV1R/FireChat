@@ -11,7 +11,7 @@ class DatabaseServices {
 
   // updating user data
 
-  Future updateUserData(String fullName, String email) async {
+  Future savingUserData(String fullName, String email) async {
     return userCollectionRef.doc(uid).set({
       "uid": uid,
       "fullName": fullName,
@@ -20,5 +20,12 @@ class DatabaseServices {
           "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltc825c6589eda7717/5eb7cdc6ee88132a6f6cfc25/V_AGENTS_587x900_Viper.png",
       "groups": [],
     });
+  }
+
+  // getting user data
+
+  Future getUserData(String email) async {
+    QuerySnapshot snapshot = await userCollectionRef.where("email", isEqualTo: email).get();
+    return snapshot;
   }
 }

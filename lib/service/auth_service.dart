@@ -10,15 +10,12 @@ class AuthServices {
 
   Future regWithEmailPass(String fullName, String email, String password) async {
     try {
-      //something
-
       User user = (await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user!;
-      // if (user != null) {
+
       // add user to database
-      await DatabaseServices(uid: user.uid).updateUserData(fullName, email);
+      await DatabaseServices(uid: user.uid).savingUserData(fullName, email);
 
       return true;
-      // }
     } on FirebaseAuthException catch (e) {
       log(e.message.toString());
       return e.message;
@@ -26,6 +23,17 @@ class AuthServices {
   }
 
   //login
+
+  Future loginWithEmailPass(String email, String password) async {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+
+      return true;
+    } on FirebaseAuthException catch (e) {
+      log(e.message.toString());
+      return e.message;
+    }
+  }
 
   //logout
 
