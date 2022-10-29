@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
               selected: false,
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               leading: const Icon(Icons.account_box_rounded),
-              title: const Text('Groups'),
+              title: const Text('Profile'),
             ),
             ListTile(
               onTap: () {},
